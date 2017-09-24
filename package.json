@@ -1,0 +1,78 @@
+{
+  "name": "react-native-splashscreen-dockicon",
+  "version": "1.0.0",
+  "description": "A React Native splashscreen and dock icon generator (Android and iOS)",
+  "author": {
+    "name": "Vincent Catillon",
+    "email": "contact@vincent-catillon.fr",
+    "url": "https://www.vincent-catillon.fr"
+  },
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:VincentCATILLON/react-native-splashscreen-dockicon.git"
+  },
+  "keywords": [
+    "react",
+    "native",
+    "splashscreen",
+    "dock",
+    "icon",
+    "launch",
+    "assets"
+  ],
+  "scripts": {
+    "lint:flow": "flow",
+    "lint:eslint": "eslint --fix src",
+    "lint": "npm run -s lint:eslint && npm run -s lint:flow",
+    "prebabelify": "rimraf dist",
+    "babelify": "babel --copy-files src --out-dir dist",
+    "prepublish": "npm run babelify"
+  },
+  "bin": {
+    "react-native-splashscreen-dockicon": "dist/cli.js"
+  },
+  "main": "dist/cli.js",
+  "files": [
+    "android",
+    "ios",
+    "lib",
+    "dist",
+    "src",
+    "!**/__tests__"
+  ],
+  "babel": {
+    "presets": [
+      "babel-preset-env",
+      "babel-preset-flow"
+    ],
+    "plugins": [
+      "babel-plugin-transform-object-rest-spread"
+    ]
+  },
+  "dependencies": {
+    "imagemagick": "^0.1.3",
+    "mkdirp": "^0.5.1",
+    "plist": "^2.1.0",
+    "rimraf": "^2.6.2",
+    "xcode": "^0.9.3",
+    "xml2js": "^0.4.19"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.0.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-flow": "^6.23.0",
+    "eslint": "^4.7.2",
+    "eslint-find-rules": "^3.1.1",
+    "eslint-plugin-ava": "^4.2.2",
+    "eslint-plugin-flowtype": "^2.35.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-react": "^7.3.0",
+    "eslint-plugin-react-native": "^3.1.0",
+    "flow-bin": "^0.54.0",
+    "prettier": "^1.6.1",
+    "xcode-node": "^1.0.2"
+  }
+}
