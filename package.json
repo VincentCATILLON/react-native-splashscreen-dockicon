@@ -1,6 +1,6 @@
 {
   "name": "react-native-splashscreen-dockicon",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A React Native splashscreen and dock icon generator (Android and iOS)",
   "author": {
     "name": "Vincent Catillon",
@@ -25,6 +25,7 @@
     "lint:flow": "flow",
     "lint:eslint": "eslint --fix src",
     "lint": "npm run -s lint:eslint && npm run -s lint:flow",
+    "test": "npm run lint",
     "prebabelify": "rimraf dist",
     "babelify": "babel --copy-files src --out-dir dist",
     "prepublish": "npm run babelify"
