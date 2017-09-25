@@ -1,8 +1,8 @@
+# React Native Splashscreen Dockicon
 
+[![NPM](https://nodei.co/npm/react-native-splashscreen-dockicon.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/react-native-splashscreen-dockicon/)
 
-A [React Native](https://facebook.github.io/react-native/) splashscreen and dock icon generator (Android and iOS)
-
-Install with `npm install --save-dev react-native-splashscreen-dockicon`.
+[![Build Status](https://api.travis-ci.org/VincentCATILLON/react-native-splashscreen-dockicon.png?branch=master)](http://travis-ci.org/VincentCATILLON/react-native-splashscreen-dockicon)
 
 ## Dependencies
 
