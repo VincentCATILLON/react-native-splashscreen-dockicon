@@ -1,9 +1,6 @@
 // @flow
 
-export type ResolutionType = {
-  width: number,
-  height: number,
-};
+import type { ResolutionType } from '../types.js';
 
 export type SplashScreenFileType = {
   idiom?:

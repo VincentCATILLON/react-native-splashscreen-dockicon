@@ -6,7 +6,6 @@ import fs from 'fs';
 
 import rimraf from 'rimraf';
 import { parse, build } from 'plist';
-import { project } from 'xcode';
 
 import appName from '../lib/appName.js';
 

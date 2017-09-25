@@ -5,6 +5,8 @@ import path from 'path';
 import imagemagick from 'imagemagick';
 import mkdirp from 'mkdirp';
 
+import type { ResolutionType } from '../types.js';
+
 type AndroidDrawableType =
   | 'ldpi'
   | 'mdpi'
