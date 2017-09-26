@@ -109,12 +109,12 @@ const generateDockIcon = (imagePath: string, dockIcon: DockIconFileType) => {
 
 export default (splashScreenPath: string, dockIconPath: string) => {
   generateFileContents(
-    DOCK_ICON_PATH,
-    dockIconFiles.map(dockIconFile => generateDockIcon(splashScreenPath, dockIconFile)),
-  );
-  generateFileContents(
     SPLASH_SCREEN_PATH,
     splashScreenFiles.map(splashScreenFile =>
-      generateSplashScreen(dockIconPath, splashScreenFile)),
+      generateSplashScreen(splashScreenPath, splashScreenFile)),
+  );
+  generateFileContents(
+    DOCK_ICON_PATH,
+    dockIconFiles.map(dockIconFile => generateDockIcon(dockIconPath, dockIconFile)),
   );
 };

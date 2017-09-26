@@ -110,14 +110,14 @@ const generateDockIcon = (imagePath: string, drawableName: AndroidDrawableType) 
 };
 
 export default (splashScreenPath: string, dockIconPath: string) => {
-  generateDockIcon(splashScreenPath, 'mdpi');
-  generateDockIcon(splashScreenPath, 'hdpi');
-  generateDockIcon(splashScreenPath, 'xhdpi');
-  generateDockIcon(splashScreenPath, 'xxhdpi');
-  generateDockIcon(splashScreenPath, 'xxxhdpi');
-  generateSplashScreen(dockIconPath, 'mdpi');
-  generateSplashScreen(dockIconPath, 'hdpi');
-  generateSplashScreen(dockIconPath, 'xhdpi');
-  generateSplashScreen(dockIconPath, 'xxhdpi');
-  generateSplashScreen(dockIconPath, 'xxxhdpi');
+  generateSplashScreen(splashScreenPath, 'mdpi');
+  generateSplashScreen(splashScreenPath, 'hdpi');
+  generateSplashScreen(splashScreenPath, 'xhdpi');
+  generateSplashScreen(splashScreenPath, 'xxhdpi');
+  generateSplashScreen(splashScreenPath, 'xxxhdpi');
+  generateDockIcon(dockIconPath, 'mdpi');
+  generateDockIcon(dockIconPath, 'hdpi');
+  generateDockIcon(dockIconPath, 'xhdpi');
+  generateDockIcon(dockIconPath, 'xxhdpi');
+  generateDockIcon(dockIconPath, 'xxxhdpi');
 };
