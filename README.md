@@ -32,6 +32,20 @@ scripts: {
 }
 ```
 
+## Troubleshooting
+
+### iOS: `rnpm-install ERR! Something went wrong while linking. Error: Expected "/*", "//", or "{" but "<" found.`
+
+When running app on iOS for the first time after generating assets, you should make your `ios/<project>.xcodeproj/project.pbxproj` file able to be used by `react-native link` command. In other words, it should be converted by Xcode to the new Plist format (not XML).
+
+To make this, follow these steps:
+
+1. Open your project on Xcode
+2. Go to the project settings
+3. Change an option (for example: from YES to NO, and restore it to the previous value: YES)
+4. Your `ios/<project>.xcodeproj/project.pbxproj` file should be converted
+5. Launch `react-native link` again
+
 ## Contributions
 
 Edit files under the `src` folder and transpile them using [Babel](http://babeljs.io/):
