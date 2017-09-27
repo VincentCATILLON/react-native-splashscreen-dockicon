@@ -9,6 +9,7 @@ import generator from './generator.js';
 
 const ANDROID_ROOT_PATH = path.join('android', 'app', 'src', 'main');
 const ANDROID_MANIFEST_FILE = path.join(ANDROID_ROOT_PATH, 'AndroidManifest.xml');
+const ANDROID_STYLES_FILE = path.join(ANDROID_ROOT_PATH, 'res', 'values', 'styles.xml');
 
 const generateActivityFile = (packageName: string) => {
   const fileName = path.join(ANDROID_ROOT_PATH, 'java', ...packageName.split('.'), 'SplashActivity.java');
@@ -36,10 +37,9 @@ public class SplashActivity extends AppCompatActivity {
 const updateManifest = (json?: Object) => {
   const { manifest } = json;
   const { application } = manifest;
-  const { activity, $ } = application.find(node => node.$);
-  $['android:theme'] = '@style/SplashTheme';
-  const newJson = json;
-  const newActivity = activity
+  let { activity, $ } = application.find(node => node.$ && node.$['android:name'] === '.MainApplication');
+  $ = {...$, 'android:theme': '@style/SplashTheme'};
+  activity = activity
     .map(activity => {
       if (activity.$['android:label']) {
         activity.$['android:name'] = '.SplashActivity';
@@ -47,18 +47,39 @@ const updateManifest = (json?: Object) => {
       return activity;
     })
     .filter(activity => activity.$['android:name'] !== '.MainActivity');
-  newActivity.push({
+  activity.push({
     $: {
       'android:name': '.MainActivity',
       'android:screenOrientation': $['android:screenOrientation'] || 'unspecified',
       'android:configChanges': 'keyboard|keyboardHidden|orientation|screenSize',
     },
   });
-  newJson.manifest.application.find(node => node.$).activity = newActivity;
   const builder = new Builder();
   console.log('[SPLASHSCREEN] Updating: ' + ANDROID_MANIFEST_FILE);
-  fs.writeFileSync(ANDROID_MANIFEST_FILE, builder.buildObject(newJson));
-}
+  fs.writeFileSync(ANDROID_MANIFEST_FILE, builder.buildObject(json));
+};
+
+const updateStyles = (json?: Object) => {
+  const { resources } = json;
+  let { style = [] } = resources;
+  style = style
+    .filter(style => style.$['name'] !== 'SplashTheme');
+  style.push({
+    $: {
+      'name': 'SplashTheme',
+      'parent': 'Theme.AppCompat.Light.NoActionBar',
+    },
+    item: [{
+      $: {
+        'name': 'android:windowBackground',
+      },
+      _: '@drawable/splash',
+    }],
+  });
+  const builder = new Builder();
+  console.log('[SPLASHSCREEN] Updating: ' + ANDROID_STYLES_FILE);
+  fs.writeFileSync(ANDROID_STYLES_FILE, builder.buildObject(json));
+};
 
 export default (splashScreenPath: string, dockIconPath: string) => {
   fs.readFile(ANDROID_MANIFEST_FILE, (e?: Error, xml?: Object) => {
@@ -71,6 +92,17 @@ export default (splashScreenPath: string, dockIconPath: string) => {
       }
       updateManifest(json);
       generateActivityFile(json.manifest.$['package']);
+    });
+  });
+  fs.readFile(ANDROID_STYLES_FILE, (e?: Error, xml?: Object) => {
+    if (e) {
+      console.error(e);
+    }
+    parseString(xml, (e?: Error, json?: Object) => {
+      if (e) {
+        console.error(e);
+      }
+      updateStyles(json);
     });
   });
   generator(splashScreenPath, dockIconPath);
