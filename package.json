@@ -1,6 +1,6 @@
 {
   "name": "react-native-splashscreen-dockicon",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A React Native splashscreen and dock icon generator (Android and iOS)",
   "author": {
     "name": "Vincent Catillon",
