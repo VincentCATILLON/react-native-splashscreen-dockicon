@@ -70,13 +70,13 @@ const generateFileContents = (
   const fileName = path.join(pathName, 'Contents.json');
   console.log('[CONTENTS] Writing: ' + fileName);
   rimraf.sync(fileName);
-  fs.writeFileSync(
+  fs.writeFile(
     fileName,
     JSON.stringify(contents),
-    'utf-8',
-    (error?: Error) => {
-      if (error) {
-        throw error;
+    'utf8',
+    (e) => {
+      if (e) {
+        throw e;
       }
     },
   );

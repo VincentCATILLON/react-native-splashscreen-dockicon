@@ -22,7 +22,9 @@ parseString(androidStringsFileContent, (e?: Error, json?: Object) => {
   if (e) {
     console.error(e);
   }
-  appName = json.resources.string.find(string => string.$.name === 'app_name')._;
+  if (json && json.resources && json.resources.string && Array.isArray(json.resources.string)) {
+    appName = json.resources.string.find(string => string.$.name === 'app_name')._;
+  }
 });
 
 export default appName;

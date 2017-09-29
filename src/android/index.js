@@ -35,9 +35,9 @@ public class SplashActivity extends AppCompatActivity {
 };
 
 const updateManifest = (json?: Object) => {
-  const { manifest } = json;
-  const { application } = manifest;
-  let { activity, $ } = application.find(node => node.$ && node.$['android:name'] === '.MainApplication');
+  const { manifest = {} } = json || {};
+  const { application = [] } = manifest;
+  let { activity = [], $ = {} } = application.find(node => node.$ && node.$['android:name'] === '.MainApplication') || {};
   $ = {...$, 'android:theme': '@style/SplashTheme'};
   activity = activity
     .map(activity => {
@@ -60,7 +60,7 @@ const updateManifest = (json?: Object) => {
 };
 
 const updateStyles = (json?: Object) => {
-  const { resources } = json;
+  const { resources = {} } = json || {};
   let { style = [] } = resources;
   style = style
     .filter(style => style.$['name'] !== 'SplashTheme');
@@ -82,23 +82,25 @@ const updateStyles = (json?: Object) => {
 };
 
 export default (splashScreenPath: string, dockIconPath: string) => {
-  fs.readFile(ANDROID_MANIFEST_FILE, (e?: Error, xml?: Object) => {
+  fs.readFile(ANDROID_MANIFEST_FILE, 'utf8', (e, xml: string) => {
     if (e) {
       console.error(e);
     }
-    parseString(xml, (e?: Error, json?: Object) => {
+    parseString(xml, (e, json?: Object) => {
       if (e) {
         console.error(e);
       }
-      updateManifest(json);
-      generateActivityFile(json.manifest.$['package']);
+      if (json) {
+        updateManifest(json);
+        generateActivityFile(json.manifest.$['package']);
+      }
     });
   });
-  fs.readFile(ANDROID_STYLES_FILE, (e?: Error, xml?: Object) => {
+  fs.readFile(ANDROID_STYLES_FILE, 'utf8', (e, xml: string) => {
     if (e) {
       console.error(e);
     }
-    parseString(xml, (e?: Error, json?: Object) => {
+    parseString(xml, (e, json?: Object) => {
       if (e) {
         console.error(e);
       }
